@@ -33,5 +33,11 @@ public class UserHomeController {
 		
 		return num--;
 	}
+	@RequestMapping("usr/home/main5")
+	@ResponseBody
+	public String showMain5() {
+		num = 0;
+		return "num 값을 0으로 초기화";
+	}
 
 }
