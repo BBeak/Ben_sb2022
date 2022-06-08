@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class UserHomeController {
-	int num = 0;
+	int count = 0;
 	@RequestMapping("usr/home/main")
 	@ResponseBody
 	public String showMain() {
@@ -27,17 +27,19 @@ public class UserHomeController {
 	public String showMain3() {
 		return "또 만나요";
 	}
-	@RequestMapping("usr/home/main4")
+	@RequestMapping("usr/home/getCount")
 	@ResponseBody
-	public int showMain4() {
+	public int getcount() {
 		
-		return num--;
+		return count;
 	}
-	@RequestMapping("usr/home/main5")
+	@RequestMapping("usr/home/doSetCount")
 	@ResponseBody
-	public String showMain5() {
-		num = 0;
-		return "num 값을 0으로 초기화";
+	public String doSetCount(int count) {
+		
+		this.count = count;
+		
+		return "num 값을"+ this.count+" 으로 초기화";
 	}
 
 }
