@@ -17,15 +17,30 @@ public class UsrArticleController {
 	public UsrArticleController() {
 		articles = new ArrayList<>();
 	}
-	
+	private void makeTestData() {
+		for (int i =1; i <= 10; i++) {
+			int id = articleLastId +1;
+			String title = "title"+i;
+			String body = "body"+i;
+			Article article = new Article (id, title, body);
+			
+			articles.add(article);
+			articleLastId = id;
+		}
+	}
+	private Article writeArticle( String title, String body) {
+		int id = articleLastId+1;
+		Article article = new Article(id, title, body);
+		articles.add(article);
+		articleLastId = id;
+		return article;
+		
+	}
 	@RequestMapping("/usr/article/doAdd")
 	@ResponseBody
 	public Article doAdd(String title, String body) {
 		int id = articleLastId + 1 ;
-		Article article = new Article(id,title,body);
-		
-		articles.add(article);
-		articleLastId = id;
+		Article article = writeArticle(title,body);
 		
 		return article;
 	}
@@ -39,6 +54,7 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
 	public String doDelete(int id){
+		
 		Article fdarticle = getArticleByID(id);
 		
 		if (fdarticle==null) {
@@ -52,6 +68,7 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
 	public Article doModify(int id, String title, String body){
+		
 		Article fdarticle = getArticleByID(id);
 		
 		if (fdarticle == null) {
