@@ -50,31 +50,15 @@ public class UsrArticleController {
 	@ResponseBody
 	public Article doModify(int id, String title, String body){
 		
-		Article fdarticle = articleService.getArticleByID(id);
-		
-		if (fdarticle == null) {
-			return null;
-		}
-		
-		fdarticle.id = id;
-		fdarticle.title = title;
-		fdarticle.body = body;
-		
-		return fdarticle;
-		
+		return articleService.modifyArticle(id, title, body);
 	}
 	@RequestMapping("/usr/article/showDetail")
 	@ResponseBody
 	public Object showDetail(int id) {
 		
-		Article fdarticle = articleService.getArticleByID(id);
+	
 		
-		if(fdarticle == null ) {
-			return id+"번 게시물은 존재하지 않습니다.";
-		}
-		
-		
-		return fdarticle;
+		return articleService.articleDetail(id);
 	}
 	
 	
