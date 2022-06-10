@@ -1,46 +1,28 @@
 package com.bkh.exam.demo.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.bkh.exam.demo.service.ArticleService;
 
 import vo.Article;
 
 @Controller
 public class UsrArticleController {
-	private List<Article>articles;
-	private int articleLastId = 0;
+	// 인스턴스 변수 시작
 	
-	public UsrArticleController() {
-		articles = new ArrayList<>();
-	}
-	private void makeTestData() {
-		for (int i =1; i <= 10; i++) {
-			int id = articleLastId +1;
-			String title = "title"+i;
-			String body = "body"+i;
-			Article article = new Article (id, title, body);
-			
-			articles.add(article);
-			articleLastId = id;
-		}
-	}
-	private Article writeArticle( String title, String body) {
-		int id = articleLastId+1;
-		Article article = new Article(id, title, body);
-		articles.add(article);
-		articleLastId = id;
-		return article;
-		
-	}
+	@Autowired
+	private ArticleService articleService;
+	
 	@RequestMapping("/usr/article/doAdd")
 	@ResponseBody
 	public Article doAdd(String title, String body) {
-		int id = articleLastId + 1 ;
-		Article article = writeArticle(title,body);
+		
+		Article article = articleService.writeArticle(title,body);
 		
 		return article;
 	}
@@ -48,20 +30,19 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/getArticles")
 	@ResponseBody
 	public List<Article>getArticles(){
-		return articles;
+		return articleService.getArticles();
 	}
 
 	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
 	public String doDelete(int id){
 		
-		Article fdarticle = getArticleByID(id);
+		Article article = articleService.getArticleByID(id);
 		
-		if (fdarticle==null) {
+		if(article == null) {
 			return id+"번 게시물은 존재하지 않습니다.";
 		}
-		articles.remove(fdarticle);
-		
+		articleService.deleteArticle(id);
 		return id+"번 게시물을 삭제하였습니다.";
 		
 	}
@@ -69,7 +50,7 @@ public class UsrArticleController {
 	@ResponseBody
 	public Article doModify(int id, String title, String body){
 		
-		Article fdarticle = getArticleByID(id);
+		Article fdarticle = articleService.getArticleByID(id);
 		
 		if (fdarticle == null) {
 			return null;
@@ -82,15 +63,20 @@ public class UsrArticleController {
 		return fdarticle;
 		
 	}
-	private Article getArticleByID(int id) {
-		for (Article article : articles) {
-			if(id == article.id) {
-				return article;
-			}
-		}
-			return null;
+	@RequestMapping("/usr/article/showDetail")
+	@ResponseBody
+	public Object showDetail(int id) {
 		
+		Article fdarticle = articleService.getArticleByID(id);
+		
+		if(fdarticle == null ) {
+			return id+"번 게시물은 존재하지 않습니다.";
+		}
+		
+		
+		return fdarticle;
 	}
+	
 	
 }
 	
