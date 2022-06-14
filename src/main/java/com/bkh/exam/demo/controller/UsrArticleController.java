@@ -57,7 +57,6 @@ public class UsrArticleController {
 	public Object showDetail(int id) {
 		
 	
-		
 		return articleService.articleDetail(id);
 	}
 	
