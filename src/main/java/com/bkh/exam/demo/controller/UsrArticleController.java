@@ -13,6 +13,7 @@ import vo.Article;
 
 @Controller
 public class UsrArticleController {
+
 	// 인스턴스 변수 시작
 	
 	@Autowired
@@ -22,7 +23,9 @@ public class UsrArticleController {
 	@ResponseBody
 	public Article doAdd(String title, String body) {
 		
-		Article article = articleService.writeArticle(title,body);
+		int id = articleService.writeArticle(title, body);
+		
+		Article article = articleService.getArticle(id);
 		
 		return article;
 	}
@@ -59,7 +62,6 @@ public class UsrArticleController {
 	
 		return articleService.articleDetail(id);
 	}
-	
 	
 }
 	

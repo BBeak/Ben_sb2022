@@ -1,83 +1,31 @@
 package com.bkh.demo.reporsitory;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Component;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import vo.Article;
 
-@Component
-public class ArticleRepository {
-	private int articlesLastId;
-	private List<Article> articles;
+@Mapper
+public interface ArticleRepository {
+	
 
-	public ArticleRepository() {
-		articlesLastId = 0;
-		articles = new ArrayList<>();
+	public int writeArticle(String title, String body);
+	
+	@Select("SELECT * FROM article WHERE id = #{id}")
+	public Article getArticleByID(@Param("id") int id);
+	@Delete("DELETE FROM article WHERE id = #{id}")
+	public void deleteArticle(@Param("id") int id) ;
 
-	}
-
-	public void makeTestData() {
-		for (int i = 1; i <= 10; i++) {
-			int id = articlesLastId + 1;
-			String title = "title" + i;
-			String body = "body" + i;
-			Article article = new Article(id, title, body);
-
-			articles.add(article);
-			articlesLastId = id;
-		}
-	}
-
-	public Article writeArticle(String title, String body) {
-		int id = articlesLastId + 1;
-		Article article = new Article(id, title, body);
-		articles.add(article);
-		articlesLastId = id;
-		return article;
-
-	}
-
-	public Article getArticleByID(int id) {
-		for (Article article : articles) {
-			if (id == article.id) {
-				return article;
-			}
-		}
-		return null;
-
-	}
-
-	public void deleteArticle(int id) {
-		Article article = getArticleByID(id);
-
-		articles.remove(article);
-	}
-
-	public List<Article> getarticles() {
-
-		return articles;
-	}
-
-	public Article modifyArticle(int id, String title, String body) {
-		Article article = getArticleByID(id);
-		
-		article.setTitle(title);
-		article.setBody(body);
-		
-		
-		return article;
-	}
-
-	public Object articleDetail(int id) {
-		Article fdarticle = getArticleByID(id);
-		
-		if(fdarticle == null ) {
-			return id+"번 게시물은 존재하지 않습니다.";
-		}
-		
-		return fdarticle;
-	}
-
+	public List<Article> getarticles();
+	@Update("UPDATE article SET title = #{title}, `body` = #{body}, updateDate = NOW() WHERE id = #{id}")
+	public Article modifyArticle(@Param("id") int id, @Param("title") String title,@Param("body") String body);
+	
+	public Object articleDetail(int id);
+	@Select("SELECT * FROM article ORDER BY id DESC")
+	public void makeTestData();
 }

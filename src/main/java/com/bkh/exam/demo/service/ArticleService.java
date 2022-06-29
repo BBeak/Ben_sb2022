@@ -12,16 +12,15 @@ import vo.Article;
 public class ArticleService {
 	private ArticleRepository articleRepository;
 
-	public ArticleService() {
-		this.articleRepository = new ArticleRepository();
-		articleRepository.makeTestData();
+	public ArticleService(ArticleRepository articleRepository) {
+		this.articleRepository = articleRepository;
 	}
 
 	public List<Article> getArticles() {
 		return articleRepository.getarticles();
 	}
 
-	public Article writeArticle(String title, String body) {
+	public int writeArticle(String title, String body) {
 		return articleRepository.writeArticle(title, body);
 	}
 
@@ -32,12 +31,19 @@ public class ArticleService {
 	public void deleteArticle(int id) {
 		articleRepository.deleteArticle(id);
 	}
+
 	public Article modifyArticle(int id, String title, String body) {
-		return articleRepository.modifyArticle(id,title,body);
+		return articleRepository.modifyArticle(id, title, body);
 	}
 
 	public Object articleDetail(int id) {
-	
+
 		return articleRepository.articleDetail(id);
+	}
+
+
+	public Article getArticle(int id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
