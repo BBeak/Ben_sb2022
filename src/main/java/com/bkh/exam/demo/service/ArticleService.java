@@ -4,46 +4,35 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.bkh.demo.reporsitory.ArticleRepository;
-
-import vo.Article;
+import com.bkh.exam.demo.repository.ArticleRepository;
+import com.bkh.exam.demo.vo.Article;
 
 @Service
 public class ArticleService {
 	private ArticleRepository articleRepository;
-
+	
 	public ArticleService(ArticleRepository articleRepository) {
 		this.articleRepository = articleRepository;
 	}
 
-	public List<Article> getArticles() {
-		return articleRepository.getarticles();
-	}
-
 	public int writeArticle(String title, String body) {
-		return articleRepository.writeArticle(title, body);
+		articleRepository.writeArticle(title, body);
+		return articleRepository.getLastInsertId();
 	}
 
-	public Article getArticleByID(int id) {
-		return articleRepository.getArticleByID(id);
+	public List<Article> getArticles() {
+		return articleRepository.getArticles();
+	}
+
+	public Article getArticle(int id) {
+		return articleRepository.getArticle(id);
 	}
 
 	public void deleteArticle(int id) {
 		articleRepository.deleteArticle(id);
 	}
 
-	public Article modifyArticle(int id, String title, String body) {
-		return articleRepository.modifyArticle(id, title, body);
-	}
-
-	public Object articleDetail(int id) {
-
-		return articleRepository.articleDetail(id);
-	}
-
-
-	public Article getArticle(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public void modifyArticle(int id, String title, String body) {
+		articleRepository.modifyArticle(id, title, body);
 	}
 }
