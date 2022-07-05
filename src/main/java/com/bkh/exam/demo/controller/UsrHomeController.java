@@ -9,10 +9,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Controller
-public class HomeController {
-	@RequestMapping("/usr/home/getString")
+public class UsrHomeController {
+	@RequestMapping("/usr/home/main")
 	@ResponseBody
 	public String getString() {
 		return "Hi";
+	}
+	@RequestMapping("/")
+	public String showRoot() {
+		return "redirect:usr/home/main";
 	}
 }

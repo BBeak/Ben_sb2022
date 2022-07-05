@@ -31,10 +31,13 @@ public interface MemberRepository {
 			FROM `member` AS M
 			WHERE M.id = #{id}
 			""")
-	
-	
 	Member getMemberById(@Param("id") int id);
 
+	@Select("""
+			SELECT *
+			FROM `member` AS M
+			WHERE M.loginId = #{loginId}
+			""")
 	Member getMemberByLoginId(@Param("loginId") String loginId);
 
 	@Select("""
@@ -44,6 +47,7 @@ public interface MemberRepository {
 			AND M.email = #{email}
 			""")
 	Member getMemberByNameAndEmail(@Param("name") String name, @Param("email") String email);
+
 }
 
 	

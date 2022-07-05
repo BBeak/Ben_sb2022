@@ -9,21 +9,23 @@ public class ResultData<DT> {
 	private String msg;
 	@Getter
 	private DT data1;
+	@Getter
+	private String data1Name;
 	
 	private ResultData() {
 		
 	}
 	
 	public static ResultData from(String resultCode, String msg) {
-		return from(resultCode, msg, null);
+		return from(resultCode, msg, null, null);
 	}
 	
-	public static <DT> ResultData<DT> from(String resultCode, String msg, DT data1) {
+	public static <DT> ResultData<DT> from(String resultCode, String msg, String data1Name,  DT data1) {
 		ResultData<DT> rd = new ResultData<DT>();
 		rd.resultCode = resultCode;
 		rd.msg = msg;
 		rd.data1 = data1;
-		
+		rd.data1Name = data1Name;
 		return rd;
 	}
 	
@@ -35,7 +37,7 @@ public class ResultData<DT> {
 		return isSuccess() == false;
 	}
 
-	public static <DT> ResultData<DT> newData(ResultData joinRd, DT newData) {
-		return from(joinRd.getResultCode(), joinRd.getMsg(), newData);
+	public static <DT> ResultData<DT> newData(ResultData oldRd, String data1Name, DT newData) {
+		return from(oldRd.getResultCode(), oldRd.getMsg(), data1Name, newData);
 	}
 }
