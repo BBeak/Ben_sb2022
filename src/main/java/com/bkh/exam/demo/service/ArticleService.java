@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.bkh.exam.demo.repository.ArticleRepository;
+import com.bkh.exam.demo.utill.Ut;
 import com.bkh.exam.demo.vo.Article;
+import com.bkh.exam.demo.vo.ResultData;
 
 @Service
 public class ArticleService {
@@ -15,9 +17,12 @@ public class ArticleService {
 		this.articleRepository = articleRepository;
 	}
 
-	public int writeArticle(String title, String body) {
-		articleRepository.writeArticle(title, body);
-		return articleRepository.getLastInsertId();
+	public ResultData writeArticle(int memberId, String title, String body) {
+		articleRepository.writeArticle(memberId, title, body);
+		
+		int id = articleRepository.getLastInsertId();
+		
+		return ResultData.from("S-1",Ut.f("%d번 게시물이 생성되었습니다.", id) , id);
 	}
 
 	public List<Article> getArticles() {
