@@ -1,36 +1,36 @@
 @font-face {
-    font-family: 'HallymGothic-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2204@1.0/HallymGothic-Regular.woff2') format('woff2');
-    font-weight: 400;
-    font-style: normal;
+	font-family: 'HallymGothic-Regular';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2204@1.0/HallymGothic-Regular.woff2')
+		format('woff2');
+	font-weight: 400;
+	font-style: normal;
 }
 
-*{
-		color : white;
-		
-		margin : 0;
-		
-		padding: 0;
-		
-		box-sizing:border-box;
-		
-	    font-family: 'HallymGothic-Regular';
-	    
-	    text-align: center;
+* {
+	box-sizing: border-box;
+	font-family: 'HallymGothic-Regular';
+	text-align: center;
 }
 
 a {
 	text-decoration: none;
-	color : inherit;
-}
-body{
-  
-  align-items:center;
- 
-  height:100vh;
-  background-color:black;
-  
-  letter-spacing: 5px;
+	color: inherit;
 }
 
+html>body {
+	color: white;
+	margin: 0;
+	padding: 0;
+	align-items: center;
+	background-color: black;
+}
 
+.table-box-type-1 {
+	width: 100%;
+}
+
+.table-box-type-1>table th, .table-box-type-1>table td {
+	border: 1px solid white;
+	padding: 10px;
+}
