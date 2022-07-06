@@ -3,3 +3,12 @@
 .hanna * {
  font-family: 'Hanna', fantasy;
 }
+
+*{
+	font-family: 'Hanna', fantasy;
+}
+
+a {
+	text-decoration: none;
+	color:inherit;
+}
