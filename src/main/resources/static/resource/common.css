@@ -1,3 +1,4 @@
+/*font*/
 @font-face {
 	font-family: 'HallymGothic-Regular';
 	src:
@@ -7,26 +8,25 @@
 	font-style: normal;
 }
 
-* {
-	box-sizing: border-box;
+
+
+
+/* 라이브러리 */
+
+html > body {
 	font-family: 'HallymGothic-Regular';
-	text-align: center;
-}
-
-a {
-	text-decoration: none;
-	color: inherit;
-}
-
-html>body {
 	color: white;
 	margin: 0;
 	padding: 0;
 	align-items: center;
 	background-color: black;
 }
+a {
+	text-decoration: none;
+	color: inherit;
+}
 
-.table-box-type-1 {
+table-box-type-1 > table {
 	width: 100%;
 }
 

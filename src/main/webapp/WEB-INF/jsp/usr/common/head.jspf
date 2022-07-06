@@ -24,7 +24,7 @@
 <body>
   <header>
     <div class="flex h-20 container mx-auto">
-      <a href="/" class="flex items-center px-3  hover:underline">
+      <a href="/" class="flex items-center px-3">
         <span>로고</span>
       </a>
       <div class="flex-grow"></div>
@@ -36,12 +36,12 @@
           </a>
         </li>
         <li>
-          <a href="/usr/article/list" class="h-full flex items-center px-3  hover:underline">
+          <a href="/usr/article/list" class="h-full flex items-center px-3">
             <span>리스트</span>
           </a>
         </li>
         <li>
-          <a href="/usr/member/login" class="h-full flex items-center px-3  hover:underline">
+          <a href="/usr/member/login" class="h-full flex items-center px-3">
             <span>로그인</span>
           </a>
         </li>
