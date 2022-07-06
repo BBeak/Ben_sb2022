@@ -1,0 +1,36 @@
+@font-face {
+    font-family: 'HallymGothic-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2204@1.0/HallymGothic-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+*{
+		color : white;
+		
+		margin : 0;
+		
+		padding: 0;
+		
+		box-sizing:border-box;
+		
+	    font-family: 'HallymGothic-Regular';
+	    
+	    text-align: center;
+}
+
+a {
+	text-decoration: none;
+	color : inherit;
+}
+body{
+  
+  align-items:center;
+ 
+  height:100vh;
+  background-color:black;
+  
+  letter-spacing: 5px;
+}
+
+
