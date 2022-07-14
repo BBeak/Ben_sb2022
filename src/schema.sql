@@ -2,42 +2,39 @@ DROP DATABASE IF EXISTS Ben_sb2022;
 CREATE DATABASE Ben_sb2022; 
 USE Ben_sb2022;
 
-#create article table
+# 게시물 테이블 생성
 CREATE TABLE article (
-	id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	regdate DATETIME NOT NULL,
-	updatedate DATETIME NOT NULL,
-	title CHAR(100),
-	`body` TEXT NOT NULL 
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    title CHAR(100),
+    `body` TEXT NOT NULL
 );
 
-
-#creat article test data
-INSERT INTO article 
-SET regdate = NOW(),
+# 게시물, 테스트 데이터 생성
+INSERT INTO article
+SET regDate = NOW(),
 updateDate = NOW(),
-title = 'title1',
-`body` = 'body1';
+title = '제목1',
+`body` = '내용1';
 
-INSERT INTO article 
-SET regdate = NOW(),
+INSERT INTO article
+SET regDate = NOW(),
 updateDate = NOW(),
-title = 'title2',
-`body` = 'body2';
+title = '제목2',
+`body` = '내용2';
 
-INSERT INTO article 
-SET regdate = NOW(),
+INSERT INTO article
+SET regDate = NOW(),
 updateDate = NOW(),
-title = 'title3',
-`body` = 'body3';
+title = '제목3',
+`body` = '내용3';
 
 SELECT * FROM article;
 
 SELECT LAST_INSERT_ID();
 
-
-#회원 테이블 생성
-
+# 회원 테이블 생성
 CREATE TABLE `member` (
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     regDate DATETIME NOT NULL,
@@ -52,6 +49,7 @@ CREATE TABLE `member` (
     delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '탈퇴여부(0=탈퇴전, 1=탈퇴)',
     delDate DATETIME COMMENT '탈퇴날짜'
 );
+
 # 회원, 테스트 데이터 생성
 INSERT INTO `member`
 SET regDate = NOW(),
@@ -84,22 +82,12 @@ nickname = "사용자2",
 cellphoneNo = "01011112222",
 email = "test2@gmail.com";
 
-SELECT * FROM `member`;
+# 게시물 테이블에 회원정보 추가
+ALTER TABLE article ADD COLUMN memberId INT(10) UNSIGNED NOT NULL AFTER `updateDate`;
 
-
-#게시물 테이블에 회원정보 추가
-
-ALTER TABLE article ADD COLUMN memberID INT(10) UNSIGNED NOT NULL AFTER `updateDate`;
-
-DESC article
-
-#기존 게시물의 작성자를 2번 으로 지정함
-
+# 기존 게시물의 작성자를 2번 으로 지정
 UPDATE article
-SET memberId=2
-WHERE memberId = 0; 
+SET memberId = 2
+WHERE memberId = 0;
 
 SELECT * FROM article;
-
-
-
