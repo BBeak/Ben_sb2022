@@ -3,10 +3,12 @@ package com.bkh.exam.demo.utill;
 public class Ut {
 	public static boolean empty(Object obj) {
 		if (obj == null) {
+
 			return true;
 		}
 
 		if (obj instanceof String == false) {
+
 			return true;
 
 		}
@@ -20,8 +22,7 @@ public class Ut {
 	}
 
 	public static String jsHistoryBack(String msg) {
-		
-				
+
 		return Ut.f("""
 				<script>
 				const msg = '%s'.trim();
@@ -30,7 +31,7 @@ public class Ut {
 				}
 				history.back();
 				</script>
-				""");
+				""", msg);
 	}
 
 	public static String jsReplace(String msg, String uri) {
