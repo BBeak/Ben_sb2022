@@ -1,5 +1,6 @@
 package com.bkh.exam.demo.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import com.bkh.exam.demo.service.MemberService;
 import com.bkh.exam.demo.utill.Ut;
 import com.bkh.exam.demo.vo.Member;
 import com.bkh.exam.demo.vo.ResultData;
+import com.bkh.exam.demo.vo.Rq;
 
 @Controller
 public class UsrMemberController {
@@ -55,14 +57,11 @@ public class UsrMemberController {
 	}
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
-	public String doLogin(HttpSession httpSession, String loginId, String loginPw) {
-boolean isLogined = false;
+	public String doLogin(HttpServletRequest req, String loginId, String loginPw) {
+		Rq rq = (Rq)req.getAttribute("rq");
 		
-		if ( httpSession.getAttribute("loginedMemberId") != null ) {
-			isLogined = true;
-		}
-		
-		if ( isLogined ) {
+	
+		if ( rq.isLogined() ) {
 			return Ut.jsHistoryBack("이미 로그인되었습니다.");
 		}
 		
@@ -84,24 +83,22 @@ boolean isLogined = false;
 			return Ut.jsHistoryBack("비밀번호가 일치하지 않습니다.");
 		}
 		
-		httpSession.setAttribute("loginedMemberId", member.getId());
+		rq.login(member);
 		
 		return Ut.jsReplace(Ut.f("%s님 환영합니다.", member.getNickname()), "/");
 	}
 	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
-	public ResultData<Member> doLogout(HttpSession httpSession) {
-		boolean isLogined = false;
-		
-		if (httpSession.getAttribute("loginedMemberId")==null) {
-			isLogined = true;
+	public String doLogout(HttpServletRequest req) {
+		Rq rq = (Rq)req.getAttribute("rq");
+	
+		if (!rq.isLogined()) {
+			return Ut.jsHistoryBack("이미 로그아웃 상태입니다.");
 		}
-		if (isLogined) {
-			return ResultData.from("S-1", "이미 로그아웃 상태입니다.");
-		}
-		httpSession.removeAttribute("loginedMemberId");
 		
-		return ResultData.from("S-2", "로그아웃 되었습니다.");
+		rq.logout();
+		
+		return Ut.jsHistoryBack("로그아웃 되었습니다.");
 		
 		}
 	@RequestMapping("/usr/member/login")

@@ -19,20 +19,20 @@ public class Rq {
 	
 	private HttpServletRequest req;
 	private HttpServletResponse resp;
-	
+	private HttpSession session;
 	
 	public Rq(HttpServletRequest req, HttpServletResponse resp) {
 		this.req = req;
 		this.resp = resp;
 		
-		HttpSession httpSession = req.getSession();
+		this.session = req.getSession();
 		
 		boolean isLogined = false;
 		int loginedMemberId = 0;
 		
-		if (httpSession.getAttribute("loginedMemberId") != null) {
+		if (session.getAttribute("loginedMemberId") != null) {
 			isLogined = true;
-			loginedMemberId = (int) httpSession.getAttribute("loginedMemberId");
+			loginedMemberId = (int) session.getAttribute("loginedMemberId");
 		}
 		
 		this.isLogined = isLogined;
@@ -40,13 +40,7 @@ public class Rq {
 	}
 	public void printHistoryBackJs(String msg) {
 		resp.setContentType("text/html; charset=UTF-8");
-		
-		println("<script>");
-		if (!Ut.empty(msg)) {
-			
-			println("alert('"+ msg +"');");
-		}
-		
+		print(Ut.jsHistoryBack(msg));
 	}
 	public void print(String str) {
 		try {
@@ -60,5 +54,17 @@ public class Rq {
 	public void println(String str) {
 		print(str + "\n");
 		
+	}
+	public void login(Member member) {
+		session.setAttribute("loginedMemberId", member.getId());
+		
+	}
+	public void logout() {
+		session.removeAttribute("loginedMemberId");
+	}
+	public String jsHistoryBackOnView(String msg) {
+		req.setAttribute("msg", msg);
+		req.setAttribute("historyBack", true);
+		return "common/js";
 	}
 }

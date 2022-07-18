@@ -12,8 +12,6 @@ import com.bkh.exam.demo.vo.Rq;
 public class NeedLoginInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse resp, Object handler) throws Exception{
-		
-			System.out.println("로그인 필요");
 			
 			Rq rq = (Rq) req.getAttribute("rq");
 			

@@ -14,13 +14,13 @@
           <tr>
             <th>로그인아이디</th>
             <td>
-              <input name="loginId" class="w-96" type="text" placeholder="로그인아이디" />
+              <input name="loginId" class="w-96 text-black" type="text" placeholder="로그인아이디" />
             </td>
           </tr>
           <tr>
             <th>로그인비밀번호</th>
             <td>
-              <input name="loginPw" class="w-96" type="password" placeholder="로그인비밀번호" />
+              <input name="loginPw" class="w-96 text-black" type="password" placeholder="로그인비밀번호" />
             </td>
           </tr>
           <tr>

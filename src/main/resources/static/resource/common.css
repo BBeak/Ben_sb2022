@@ -32,11 +32,12 @@ table-box-type-1 > table {
 
 .table-box-type-1>table th, .table-box-type-1>table td {
 	border: 1px solid white;
+	
 	padding: 10px;
 }
 
 btn-text-link{
-	color : black;
+	color : white;
 	
 	text-decoration: none;
 }
