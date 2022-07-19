@@ -50,7 +50,7 @@
 		</div>
 		<div class="button">
 			<button type="button" onclick="history.back();">뒤로가기</button>
-			<a class="btn-text-link" href="../article/doModify?id=${article.id}">게시물
+			<a class="btn-text-link" href="../article/Modify?id=${article.id}">게시물
 				수정</a>
 			<c:if test="${article.extra__actorCanDelete}">
 				<a class="btn-text-link"

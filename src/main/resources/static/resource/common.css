@@ -12,7 +12,9 @@
 
 
 /* 라이브러리 */
-
+body{
+	min-width:800px;
+}
 html > body {
 	font-family: 'HallymGothic-Regular';
 	color: white;
