@@ -71,6 +71,12 @@ public class Rq {
 	public void logout() {
 		session.removeAttribute("loginedMemberId");
 	}
+	
+	public String historyBackJsOnView(String msg) {
+		req.setAttribute("msg", msg);
+		req.setAttribute("msg", msg);
+		return "common/js";
+	}
 
 	public String jsHistoryBackOnView(String msg) {
 		req.setAttribute("msg", msg);
@@ -83,7 +89,6 @@ public class Rq {
 	}
 	
 	public String jsReplace(String msg, String uri) {
-		resp.setContentType("text/html; charset=UTF-8");
 		return Ut.jsReplace(msg, uri);
 	}
 }

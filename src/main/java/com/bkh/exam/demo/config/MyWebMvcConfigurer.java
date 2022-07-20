@@ -10,9 +10,11 @@ import com.bkh.exam.demo.interceptor.NeedLoginInterceptor;
 
 @Configuration
 public class MyWebMvcConfigurer implements WebMvcConfigurer {
-	// beforeActionInterceptor 인터셉터 불러오기
+	// beforeActionInterceptor 불러오기
 	@Autowired
 	BeforeActionInterceptor beforeActionInterceptor;
+	
+	// needLoginInterceptor 불러오기
 	@Autowired
 	NeedLoginInterceptor needLoginInterceptor;
 

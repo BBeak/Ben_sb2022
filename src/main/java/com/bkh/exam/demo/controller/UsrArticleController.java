@@ -3,34 +3,45 @@ package com.bkh.exam.demo.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bkh.exam.demo.service.ArticleService;
+import com.bkh.exam.demo.service.BoardService;
 import com.bkh.exam.demo.utill.Ut;
 import com.bkh.exam.demo.vo.Article;
+import com.bkh.exam.demo.vo.Board;
 import com.bkh.exam.demo.vo.ResultData;
 import com.bkh.exam.demo.vo.Rq;
 
 @Controller
 public class UsrArticleController {
-	@Autowired
-	private ArticleService articleService;
 
-	// 액션 메서드 시작
-	
+	private ArticleService articleService;
+	private BoardService boardService;
+
+	public UsrArticleController(ArticleService articleService, BoardService boardService) {
+		this.articleService = articleService;
+		this.boardService = boardService;
+
+	}
 
 	@RequestMapping("/usr/article/list")
-	public String showList(HttpServletRequest req, Model model) {
+	public String showList(HttpServletRequest req, Model model, int boardId) {
 		Rq rq = (Rq) req.getAttribute("rq");
-
-		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId());
-
+		Board board = boardService.getBoardById(boardId);
+		
+		if (board == null) {
+			return rq.historyBackJsOnView(Ut.f("%d번 게시판은 존재하지 않습니다.", boardId));
+		}
+		int articlesCount = articleService.getArticlesCount(boardId);
+		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(), boardId);
+		
+		model.addAttribute("board",board);
+		model.addAttribute("articlesCount", articlesCount);
 		model.addAttribute("articles", articles);
 
 		return "usr/article/list";
@@ -98,7 +109,9 @@ public class UsrArticleController {
 			return Ut.jsHistoryBack(actorCanModifyRd.getMsg());
 		}
 		model.addAttribute("article", article);
-
+		
+		
+		
 		return "usr/article/modify";
 	}
 
@@ -119,16 +132,17 @@ public class UsrArticleController {
 			return Ut.jsHistoryBack(actorCanModifyRd.getMsg());
 		}
 
-		 articleService.modifyArticle(id, title, body);
-		 
-		 return Ut.jsReplace(Ut.f("%d번 글이 수정되었습니다.", id), Ut.f("../article/detail?id=%d", id));
+		articleService.modifyArticle(id, title, body);
+
+		return Ut.jsReplace(Ut.f("%d번 글이 수정되었습니다.", id), Ut.f("../article/detail?id=%d", id));
 	}
+
 	@RequestMapping("/usr/article/write")
 	public String showwrite(HttpServletRequest req, Model model) {
-		
-		
+
 		return "usr/article/write";
 	}
+
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
 	public String doAdd(HttpServletRequest req, String title, String body, String replaceUri) {
@@ -145,15 +159,15 @@ public class UsrArticleController {
 
 		ResultData<Integer> writeArticleRd = articleService.writeArticle(rq.getLoginedMemberId(), title, body);
 		int id = writeArticleRd.getData1();
-		
+
 		if (Ut.empty(replaceUri)) {
-			replaceUri = Ut.f("../article/detail?id=%d",id);
+			replaceUri = Ut.f("../article/detail?id=%d", id);
 		}
 
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
-		return rq.jsReplace(Ut.f("%d번 글이 생성되었습니다.",id), replaceUri);
+		return rq.jsReplace(Ut.f("%d번 글이 생성되었습니다.", id), replaceUri);
 	}
-	
+
 	// 액션 메서드 끝
 }
