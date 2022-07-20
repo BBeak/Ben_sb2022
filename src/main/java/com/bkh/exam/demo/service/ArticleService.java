@@ -17,8 +17,8 @@ public class ArticleService {
 		this.articleRepository = articleRepository;
 	}
 
-	public ResultData<Integer> writeArticle(int memberId, String title, String body) {
-		articleRepository.writeArticle(memberId, title, body);
+	public ResultData<Integer> writeArticle(int memberId, int boardId, String title, String body) {
+		articleRepository.writeArticle(memberId, boardId, title, body);
 
 		int id = articleRepository.getLastInsertId();
 
@@ -43,7 +43,7 @@ public class ArticleService {
 
 		return article;
 	}
-	
+
 	private void updateForPrintData(int actorId, Article article) {
 		if (article == null) {
 			return;
@@ -51,7 +51,7 @@ public class ArticleService {
 
 		ResultData actorCanDeleteRd = actorCanDelete(actorId, article);
 		article.setExtra__actorCanDelete(actorCanDeleteRd.isSuccess());
-		
+
 		ResultData actorCanModifyRd = actorCanModify(actorId, article);
 		article.setExtra__actorCanModify(actorCanModifyRd.isSuccess());
 	}
@@ -93,6 +93,7 @@ public class ArticleService {
 
 		return ResultData.from("S-1", "게시물 삭제가 가능합니다.");
 	}
+
 	public int getArticlesCount(int boardId) {
 		return articleRepository.getArticlesCount(boardId);
 	}

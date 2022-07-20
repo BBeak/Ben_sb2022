@@ -16,7 +16,9 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 	private MemberService memberService;
 	@Override
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse resp, Object handler) throws Exception {
-	
+//		Rq rq = new Rq(req, resp, memberService);
+//		req.setAttribute("rq", rq);
+// 		자동으로 Rq객체를 생성하기 때문에 더 이상 필요 없음.
 
 		return HandlerInterceptor.super.preHandle(req, resp, handler);
 	}

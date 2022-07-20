@@ -6,39 +6,54 @@
 
 <section class="mt-5">
 	<div class="container mx-auto px-3">
-		<div class="table-box-type-1">
+		<form class="table-box-type-1" method="post" action="../article/doWrite">
 			<table>
 				<colgroup>
 					<col width="200" />
 				</colgroup>
 				<tbody>
-					
+
 					<tr>
 						<th>작성자</th>
 						<td>${rq.loginedMember.nickname}</td>
 					</tr>
 					<tr>
+					<tr>
+						<th>게시판</th>
+						<td><select class="select select-bordered text-black" name="boardId">
+								<option selected disabled>게시판을 선택해주세요.</option>
+								<option value="1">공지</option>
+								<option value="2">자유</option>
+						</select> <!-- 
+              <label>
+                공지
+                <input type="radio" name="boardId" value="1" />
+              </label>
+              <label>
+                자유
+                <input type="radio" name="boardId" value="2" />
+              </label>
+              --></td>
+					</tr>
+					<tr>
 						<th>제목</th>
-						<td>
-						<input name="title" type="text" placeholder="제목" class="w-96 input input-bordered w-full max-w-xs text-black"/>>
+						<td><input name="title" type="text" placeholder="제목"
+							class="w-96 input input-bordered w-full max-w-xs text-black" />>
 						</td>
 					</tr>
 					<tr>
 						<th>내용</th>
-						<td>
-						<textarea class="w-full textarea textarea-bordered text-black" name="body" rows="10" placeholder="내용"></textarea>
-						</td>
+						<td><textarea required="required" class="w-full textarea textarea-bordered text-black" name="body" rows="10" placeholder="내용"></textarea></td>
 					<tr>
-					<th>작성</th>
-					<td>
-					<input type="submit" class="btn btn-primary" value="작성" />
-              		<button type="button" class="btn btn-outline btn-success" onclick="history.back();">뒤로가기</button>
-              		</td>
-              		</tr>
+						<th>작성</th>
+						<td><input type="submit" class="btn btn-primary" value="작성" />
+							<button type="button" class="btn btn-outline btn-success"
+								onclick="history.back();">뒤로가기</button></td>
+					</tr>
 				</tbody>
 			</table>
+			</form>
 		</div>
-	</div>
 </section>
 
 <%@ include file="../common/foot.jspf"%>

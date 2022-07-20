@@ -10,7 +10,7 @@ import com.bkh.exam.demo.vo.Article;
 
 @Mapper
 public interface ArticleRepository {
-	public void writeArticle(@Param("memberId") int memberId, @Param("title") String title, @Param("body") String body);
+	public void writeArticle(@Param("memberId") int memberId,@Param("boardId") int boardId, @Param("title") String title, @Param("body") String body);
 	
 	@Select("""
 			SELECT A.*,
@@ -36,7 +36,7 @@ public interface ArticleRepository {
 			ON A.memberId = M.id
 			WHERE 1
 			<if test="boardId != 0">
-				AND A.boardID = #{boardId}
+				AND A.boardId = #{boardId}
 			</if>
 			ORDER BY id DESC
 			</script>
