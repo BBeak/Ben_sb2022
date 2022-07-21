@@ -35,13 +35,35 @@
 							<td>${article.regDate.substring(2, 16)}</td>
 							<td>${article.updateDate.substring(2, 16)}</td>
 							<td>${article.extra__writerName}</td>
-							<td><a href="../article/detail?id=${article.id}">${article.title}</a>
+							<td>
+							<a class="btn-text-link" href="../article/detail?id=${article.id}">${article.title}</a>
 							</td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
 		</div>
+		
+		
+		<div class="page-menu mt-4">
+	<div class="btn-group justify-center">
+        <c:set var="pageMenuArmLen" value="9" />
+        <c:set var="startPage" value="${page - pageMenuArmLen >= 1 ? page - pageMenuArmLen : 1}" />
+        <c:set var="endPage" value="${page + pageMenuArmLen <= pagesCount ? page + pageMenuArmLen : pagesCount}" />
+
+        <c:if test="${startPage > 1}">
+          <a class="btn btn-sm " href="?page=1">1</a>
+          <a class="btn btn-sm btn-disabled">...</a>
+        </c:if>
+        <c:forEach begin="${startPage}" end="${endPage}" var="i">
+          <a class="btn btn-sm ${page == i ? 'btn-active' : '' }" href="?page=${i}">${i}</a>
+        </c:forEach>
+        <c:if test="${endPage < pagesCount}">
+          <a class="btn btn-sm btn-disabled">...</a>
+          <a class="btn btn-sm" href="?page=${pagesCount}">${pagesCount}</a>
+        </c:if>
+		</div>
+	</div>
 	</div>
 </section>
 

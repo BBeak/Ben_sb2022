@@ -33,7 +33,8 @@
                 자유
                 <input type="radio" name="boardId" value="2" />
               </label>
-              --></td>
+              -->
+              </td>
 					</tr>
 					<tr>
 						<th>제목</th>

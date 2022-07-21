@@ -34,7 +34,7 @@
 			</if>
 			updateDate = NOW()
 		</set>
-		WHERE id = #{id}
+			WHERE id = #{id}
 	</update>
 </mapper> 
 	

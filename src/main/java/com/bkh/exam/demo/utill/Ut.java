@@ -26,12 +26,12 @@ public class Ut {
 		return Ut.f("""
 				<script>
 				const msg = '%s'.trim();
-				if(msg.length > 0) {
+				if ( msg.length > 0 ) {
 					alert(msg);
 				}
 				history.back();
 				</script>
-				""", msg);
+				""",msg);
 	}
 
 	public static String jsReplace(String msg, String uri) {
