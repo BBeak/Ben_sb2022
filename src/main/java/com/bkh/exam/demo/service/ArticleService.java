@@ -33,7 +33,7 @@ public class ArticleService {
 		  ORDER By id DESC 
 		  LIMIT 20, 10
 		 */
-		int limitStart = (page -1) * itemsCountInAPage;
+		int limitStart = (page - 1) * itemsCountInAPage;
 		int limitTake = itemsCountInAPage;
 		List<Article> articles = articleRepository.getForPrintArticles(boardId,limitStart,limitTake);
 
@@ -102,7 +102,7 @@ public class ArticleService {
 		return ResultData.from("S-1", "게시물 삭제가 가능합니다.");
 	}
 
-	public int getArticlesCount(int boardId) {
-		return articleRepository.getArticlesCount(boardId);
+	public int getArticlesCount(int boardId,String searchKeywordTypeCode, String searchKeyword) {
+		return articleRepository.getArticlesCount(boardId, searchKeywordTypeCode, searchKeyword);
 	}
 }
