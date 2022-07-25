@@ -1,18 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-  pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+$('select[data-value]').each(function(index, el) {
+	const $el = $(el);
+	const defaultValue = $el.attr('data-value').trim();
 
-<script>
-  var historyBack = '${historyBack}' == 'true';
-  var msg = '${msg}'.trim();
-  if (msg) {
-    alert(msg);
-  }
-  if (historyBack) {
-    history.back();
-  }
-  var replaceUri = '${replaceUri}'.trim();
-  if (replaceUri) {
-    location.replace(replaceUri);
-  }
-</script>  
+	if (defaultValue.length > 0) {
+		$el.val(defaultValue);
+	}
+}) 

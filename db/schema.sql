@@ -1,4 +1,4 @@
-`Ben_sb2022`DROP DATABASE IF EXISTS Ben_sb2022;
+DROP DATABASE IF EXISTS Ben_sb2022;
 CREATE DATABASE Ben_sb2022; 
 USE Ben_sb2022;
 
@@ -127,12 +127,18 @@ WHERE id IN(3);
 #게시물 개수 늘리기
 
 # 게시물 개수 늘리기
-
+/*
 INSERT INTO article
 (
 	regDate, updateDate, memberId, boardId, title, `body`
 )
 SELECT NOW(), NOW(), FLOOR(RAND() * 2) + 1, FLOOR(RAND() * 2) + 1, CONCAT('제목_', RAND()), CONCAT('제목_', RAND())
 FROM article;
-
+*/
 SELECT COUNT(*) FROM article;
+
+
+# 게시물 테이블 hitCount 컬럼 추가
+ALTER TABLE article
+
+ADD COLUMN hitCount INT(10) UNSIGNED NOT NULL DEFAULT 0;
