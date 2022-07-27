@@ -123,13 +123,5 @@ public interface ArticleRepository {
 			""")
 	public int getArticleHitCount(int id);
 
-	@Select("""
-			<script>
-			SELECT IFNULL(SUM(RP.point),0) AS s
-			FROM reactionPoint AS RP
-			AND id = #{id}
-			AND RP.memberId = #{memberId}
-			</script>
-			""")
-	public int actorCanMakeReactionPoint(int id, int memberid);
+	
 }

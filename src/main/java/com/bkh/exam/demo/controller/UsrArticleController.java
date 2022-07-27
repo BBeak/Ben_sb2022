@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bkh.exam.demo.service.ArticleService;
 import com.bkh.exam.demo.service.BoardService;
+import com.bkh.exam.demo.service.ReactionPointService;
 import com.bkh.exam.demo.utill.Ut;
 import com.bkh.exam.demo.vo.Article;
 import com.bkh.exam.demo.vo.Board;
@@ -22,8 +23,9 @@ public class UsrArticleController {
 	private ArticleService articleService;
 	private BoardService boardService;
 	private Rq rq;
+	private ReactionPointService reactionPointService;
 
-	public UsrArticleController(ArticleService articleService, BoardService boardService, ReactionPointService react, Rq rq) {
+	public UsrArticleController(ArticleService articleService, BoardService boardService, ReactionPointService reactionPointService, Rq rq) {
 		this.articleService = articleService;
 		this.boardService = boardService;
 		this.reactionPointService = reactionPointService;
