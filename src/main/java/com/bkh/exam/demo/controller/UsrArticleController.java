@@ -65,13 +65,16 @@ public class UsrArticleController {
 
 		model.addAttribute("article", article);
 
+		boolean actorCanMakeReactionPoint = articleService.actorCanMakeReactionPoint(rq.getLoginedMemberId(), id);
+		model.addAttribute("actorCanMakeReactionPoint", actorCanMakeReactionPoint);
+
 		return "usr/article/detail";
 	}
 	@RequestMapping("/usr/article/doIncreaseHitCountRd")
 	@ResponseBody
 	public ResultData<Integer> doIncreaseHitCountRd(int id) {
 		ResultData<Integer> increaseHitCountRd = articleService.increaseHitCount(id);
-
+		
 		if ( increaseHitCountRd.isFail() ) {
 			return increaseHitCountRd;
 		}
