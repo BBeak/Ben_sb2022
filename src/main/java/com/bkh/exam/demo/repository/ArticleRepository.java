@@ -17,16 +17,12 @@ public interface ArticleRepository {
 	@Select("""
 			<script>
 			SELECT A.*,
+			M.nickname AS extra__writerName
 			FROM article AS A
-			M.nickname As extra__writerName
 			LEFT JOIN `member` AS M
 			ON A.memberId = M.id
-			LEFT JOIN reactionPoint AS RP
-			ON RP.relTypeCode = 'article'
-			AND A.id = RP.relId
 			WHERE 1
 			AND A.id = #{id}
-			GROUP BY A.id
 			</script>
 			""")
 	public Article getForPrintArticle(@Param("id") int id);
@@ -37,11 +33,6 @@ public interface ArticleRepository {
 
 	@Select("""
 			<script>
-			SELECT A.*,
-			IFNULL(SUM(RP.point), 0) AS extra__sumReactionPoint,
-			IFNULL(SUM(IF(RP.point &gt; 0, RP.point, 0)), 0) AS extra__goodReactionPoint,
-			IFNULL(SUM(IF(RP.point &lt; 0, RP.point, 0)), 0) AS extra__badReactionPoint
-			FROM (
 				SELECT A.*,
 				M.nickname AS extra__writerName
 				FROM article AS A
@@ -68,18 +59,12 @@ public interface ArticleRepository {
 						</otherwise>
 					</choose>
 				</if>
+				ORDER BY A.id DESC
 				<if test="limitTake != -1">
 					LIMIT #{limitStart}, #{limitTake}
 				</if>
-			) AS A
-			LEFT JOIN reactionPoint AS RP
-			ON RP.relTypeCode = 'article'
-			AND A.id = RP.relId
-			GROUP BY A.id
-			ORDER BY A.id DESC
 			</script>
 			""")
-
 	public List<Article> getForPrintArticles(int boardId, String searchKeyword, String searchKeywordTypeCode,
 			int limitStart, int limitTake);
 
@@ -112,7 +97,6 @@ public interface ArticleRepository {
 			</if>
 			</script>
 			""")
-
 	public int getArticlesCount(int boardId, String searchKeywordTypeCode, String searchKeyword);
 
 	@Update("""
@@ -125,22 +109,48 @@ public interface ArticleRepository {
 	public int increaseHitCount(int id);
 
 	@Select("""
-				<script>
-				SELECT hitCount
-				FROM article
-				WHERE id = #{id}
-				</script>
+			<script>
+			SELECT hitCount
+			FROM article
+			WHERE id = #{id}
+			</script>
 			""")
 	public int getArticleHitCount(int id);
-	
-	@Select("""
-				<script>
-				SELECT IFNULL(SUM(RP.point),0) AS s
-				FROM article reactionPoint AS RP
-				WHERE RP.reltypeCode='article'
-				AND id = #{id}
-				AND RP.memberId = #{memberId}
-				</script>
+
+	@Update("""
+			<script>
+			UPDATE article
+			SET goodReactionPoint = goodReactionPoint + 1
+			WHERE id = #{id}
+			</script>
 			""")
-	public int actorCanMakeReactionPoint(int actorId, int id) ;
+	public int increaseGoodReactionPoint(int id);
+
+	@Update("""
+			<script>
+			UPDATE article
+			SET badReactionPoint = badReactionPoint + 1
+			WHERE id = #{id}
+			</script>
+			""")
+	public int increaseBadReactionPoint(int id);
+
+	@Update("""
+			<script>
+			UPDATE article
+			SET goodReactionPoint = goodReactionPoint - 1
+			WHERE id = #{id}
+			</script>
+			""")
+	public int decreaseGoodReactionPoint(int id);
+
+	@Update("""
+			<script>
+			UPDATE article
+			SET badReactionPoint = badReactionPoint - 1
+			WHERE id = #{id}
+			</script>
+			""")
+	public int decreaseBadReactionPoint(int id);
+
 }

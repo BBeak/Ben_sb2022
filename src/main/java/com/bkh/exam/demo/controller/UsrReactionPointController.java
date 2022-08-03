@@ -46,4 +46,4 @@ import com.bkh.exam.demo.vo.Rq;
 			return rq.jsReplace("싫어요를 하셨습니다.", replaceUri);
 		}
 	}
-}
+

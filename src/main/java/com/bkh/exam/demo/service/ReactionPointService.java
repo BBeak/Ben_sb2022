@@ -3,6 +3,8 @@ package com.bkh.exam.demo.service;
 import org.springframework.stereotype.Service;
 
 import com.bkh.exam.demo.repository.ReactionPointRepository;
+import com.bkh.exam.demo.vo.ResultData;
+
 
 @Service
 public class ReactionPointService {
@@ -52,6 +54,32 @@ public class ReactionPointService {
 		}
 
 		return ResultData.from("S-1", "싫어요 처리 되었습니다.");
+	}
+
+	public ResultData deleteGoodReactionPoint(int actorId, String relTypeCode, int relId) {
+		reactionPointRepository.deleteGoodReactionPoint(actorId, relTypeCode, relId);
+
+		switch (relTypeCode) {
+		case "article":
+			articleService.decreaseGoodReactionPoint(relId);
+			break;
+
+		}
+
+		return ResultData.from("S-1", "좋아요 취소처리 되었습니다.");
+	}
+
+	public ResultData deleteBadReactionPoint(int actorId, String relTypeCode, int relId) {
+		reactionPointRepository.deleteBadReactionPoint(actorId, relTypeCode, relId);
+
+		switch (relTypeCode) {
+		case "article":
+			articleService.decreaseBadReactionPoint(relId);
+			break;
+
+		}
+
+		return ResultData.from("S-1", "싫어요 취소처리 되었습니다.");
 	}
 
 }

@@ -182,7 +182,7 @@ public class UsrArticleController {
 		if (Ut.empty(title)) {
 			return rq.jsHistoryBack("title(을)를 입력해주세요.");
 		}
-1
+
 		if (Ut.empty(body)) {
 			return rq.jsHistoryBack("body(을)를 입력해주세요.");
 		}
